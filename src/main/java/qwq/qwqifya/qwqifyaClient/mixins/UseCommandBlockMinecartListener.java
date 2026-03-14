@@ -18,6 +18,8 @@ public class UseCommandBlockMinecartListener {
     public void useOn(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
         Player player = useOnContext.getPlayer();
         ItemStack item = useOnContext.getItemInHand();
-        if(!checkEntityData(item,player)) cir.cancel();
+        if(!checkEntityData(item,player)) {
+            cir.setReturnValue(InteractionResult.CONSUME);
+        }
     }
 }

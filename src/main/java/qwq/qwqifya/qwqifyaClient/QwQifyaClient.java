@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
 import qwq.qwqifya.qwqifyaApi.commandUtils.CommandManager;
 import qwq.qwqifya.qwqifyaApi.messageUtils.MsgManager;
-import qwq.qwqifya.qwqifyaClient.commands.OpenConfigMenuCmd;
 import qwq.qwqifya.qwqifyaClient.utils.ClientConfig;
 
 import static qwq.qwqifya.qwqifyaClient.utils.CheckData.*;
@@ -23,7 +22,6 @@ public class QwQifyaClient implements ClientModInitializer {
     public static ConfigHolder<ClientConfig> configHolder;
     @Override
     public void onInitializeClient() {
-        new OpenConfigMenuCmd();
 
         AutoConfig.register(ClientConfig.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(ClientConfig.class).getConfig();

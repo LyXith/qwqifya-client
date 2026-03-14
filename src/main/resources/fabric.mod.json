@@ -23,6 +23,8 @@
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
+    "qwqifya-api": ">=1.0",
+    "cloth-config-api": ">=21.11.0",
     "minecraft": "${minecraft_version}"
   }
 }

@@ -1,8 +1,12 @@
 package qwq.qwqifya.qwqifyaClient;
 
+import com.mojang.authlib.minecraft.client.MinecraftClient;
 import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.ConfigData;
+import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -18,11 +22,13 @@ public class QwQifyaClient implements ClientModInitializer {
     public final static String modId =  "qwqifya-client";
     public static ClientConfig config = null;
     public static MsgManager msgManager = new MsgManager(modId);
+    public static ConfigHolder<ClientConfig> configHolder;
     @Override
     public void onInitializeClient() {
 
         AutoConfig.register(ClientConfig.class, GsonConfigSerializer::new);
         config = AutoConfig.getConfigHolder(ClientConfig.class).getConfig();
+        configHolder = AutoConfig.getConfigHolder(ClientConfig.class);
 
         UseBlockCallback.EVENT.register((player, level, hand, blockHitResult) -> {
             if (!config.clickEventEnabled) {

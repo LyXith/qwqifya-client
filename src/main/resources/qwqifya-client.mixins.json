@@ -6,8 +6,6 @@
   "mixins": [
   ],
   "client": [
-    "UseSpawnEggListener",
-    "UseCommandBlockMinecartListener"
   ],
   "injectors": {
     "defaultRequire": 1

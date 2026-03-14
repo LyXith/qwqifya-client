@@ -1,8 +1,11 @@
 package qwq.qwqifya.qwqifyaClient;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
 import qwq.qwqifya.qwqifyaApi.commandUtils.CommandManager;
 import qwq.qwqifya.qwqifyaClient.commands.ControlCommand;
 
@@ -22,6 +25,21 @@ public class QwQifyaClient implements ClientModInitializer {
             }
             return InteractionResult.PASS;
         });
+        BlockEvents.USE_ITEM_ON.register((item, blockState, level, blockPos, player, interactionHand, blockHitResult) ->
+        {
+            if (!checkEntityData(item,player) || !checkBlockEntityData(item,player)) {
+                return InteractionResult.SUCCESS.withoutItem();
+            }
+            return null;
+        });
+        UseItemCallback.EVENT.register((player, world, hand) ->{
+            ItemStack item = player.getMainHandItem();
+            if (!checkEffect(item,player)) {
+                return InteractionResult.CONSUME;
+            }
+            return InteractionResult.PASS;
+        });
         CommandManager.refreshCommands();
+
     }
 }

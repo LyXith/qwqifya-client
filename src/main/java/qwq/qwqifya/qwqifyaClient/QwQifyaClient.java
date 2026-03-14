@@ -28,7 +28,7 @@ public class QwQifyaClient implements ClientModInitializer {
         configHolder = AutoConfig.getConfigHolder(ClientConfig.class);
 
         UseBlockCallback.EVENT.register((player, level, hand, blockHitResult) -> {
-            if (!config.clickEventEnabled) {
+            if (config.preventClickEvent) {
                 boolean stopClickEvent = !checkClickEvent(blockHitResult.getBlockPos(), level, player);
                 if (stopClickEvent) {
                     player.swing(hand);

@@ -24,19 +24,21 @@ import net.minecraft.world.level.block.entity.SignText;
 
 import java.util.List;
 
+import static qwq.qwqifya.qwqifyaClient.QwQifyaClient.msgManager;
+
 public class CheckData {
     public static boolean checkClickEvent(BlockPos blockPos, Level level, Player player) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
         if (blockEntity instanceof SignBlockEntity signBlockEntity) {
             SignText text = signBlockEntity.isFacingFrontText(player) ? signBlockEntity.getFrontText() : signBlockEntity.getBackText();
             if (text.hasAnyClickCommands(player)) {
-                player.displayClientMessage(Component.literal("已阻止指令运行，指令内容："),false);
+                msgManager.sendMsg(player,Component.literal("已阻止指令运行，指令内容："));
                 for(Component component : text.getMessages(player.isTextFilteringEnabled())) {
                     Style style = component.getStyle();
                     ClickEvent clickEvent = style.getClickEvent();
                     if (clickEvent != null && clickEvent.action() == ClickEvent.Action.RUN_COMMAND) {
                         String command = ((ClickEvent.RunCommand) clickEvent).command();
-                        player.displayClientMessage(Component.literal(command),false);
+                        msgManager.sendMsg(player,Component.literal(command));
                     }
                 }
                 return false;
@@ -56,7 +58,7 @@ public class CheckData {
             if (entityData.type() == EntityType.COMMAND_BLOCK_MINECART) {
                 String command = entityData.copyTagWithoutId().getStringOr("Command","");
                 if (!command.isEmpty()) {
-                    player.displayClientMessage(Component.literal("检测到命令方块矿车，指令为" + command + ",已阻止放置"), false);
+                    msgManager.sendMsg(player,Component.literal("检测到命令方块矿车，指令为" + command + ",已阻止放置"));
                     return false;
                 }
             }
@@ -64,7 +66,7 @@ public class CheckData {
         if (item.getItem() == Items.COMMAND_BLOCK_MINECART) {
             String command = entityData.copyTagWithoutId().getStringOr("Command","");
             if (!command.isEmpty()) {
-                player.displayClientMessage(Component.literal("检测到命令方块矿车，指令为" + command + ",已阻止放置"), false);
+                msgManager.sendMsg(player,Component.literal("检测到命令方块矿车，指令为" + command + ",已阻止放置"));
                 return false;
             }
         }
@@ -80,7 +82,7 @@ public class CheckData {
             if (!blockEntityData.getStringOr("Command", "").isEmpty()
                     && blockEntityData.getBooleanOr("auto", false)) {
                 String command = blockEntityData.getStringOr("Command", "");
-                player.displayClientMessage(Component.literal("检测到下落的命令方块，指令为" + command + ",已阻止放置"), false);
+                msgManager.sendMsg(player,Component.literal("检测到下落的命令方块，指令为" + command + ",已阻止放置"));
                 return false;
             }
         }
@@ -93,7 +95,7 @@ public class CheckData {
         if (blockEntityData != null) {
             String command = blockEntityData.copyTagWithoutId().getStringOr("Command","");
             if (!command.isEmpty() && blockEntityData.copyTagWithoutId().getBooleanOr("auto",false)) {
-                player.displayClientMessage(Component.literal("检测到自动执行的指令：" + command + ",已阻止放置"), false);
+                msgManager.sendMsg(player,Component.literal("检测到自动执行的指令：" + command + ",已阻止放置"));
                 return false;
             }
         }
@@ -107,8 +109,8 @@ public class CheckData {
             if (potionContents != null) {
                 List<MobEffectInstance> effects = potionContents.customEffects();
                 for (MobEffectInstance effect : effects) {
-                    if (effect.getEffect() == MobEffects.INSTANT_HEALTH && effect.getAmplifier() == 124) {
-                        player.displayClientMessage(Component.literal("已阻止使用    药水"),false);
+                    if (effect.getEffect() == MobEffects.INSTANT_HEALTH && effect.getAmplifier() == 125) {
+                        msgManager.sendMsg(player,Component.literal("已阻止使用药水"));
                         return false;
                     }
                 }

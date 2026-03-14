@@ -12,6 +12,9 @@
   "entrypoints": {
     "client": [
       "qwq.qwqifya.qwqifyaClient.QwQifyaClient"
+    ],
+    "modmenu": [
+      "qwq.qwqifya.qwqifyaClient.utils.ModMenuIntegration"
     ]
   },
   "mixins": [

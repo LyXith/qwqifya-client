@@ -1,11 +1,13 @@
 package qwq.qwqifya.qwqifyaClient.utils;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -38,7 +40,11 @@ public class CheckData {
                     ClickEvent clickEvent = style.getClickEvent();
                     if (clickEvent != null && clickEvent.action() == ClickEvent.Action.RUN_COMMAND) {
                         String command = ((ClickEvent.RunCommand) clickEvent).command();
-                        msgManager.sendMsg(player,Component.literal(command));
+                        Component message = Component.literal(command)
+                                .withStyle(ChatFormatting.GOLD)
+                                .withStyle(a -> a.withClickEvent(new ClickEvent.RunCommand(command)))
+                                .withStyle(a -> a.withHoverEvent(new HoverEvent.ShowText(Component.literal("点击执行"))));
+                        msgManager.sendMsg(player,message);
                     }
                 }
                 return false;

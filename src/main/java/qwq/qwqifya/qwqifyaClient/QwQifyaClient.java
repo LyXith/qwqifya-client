@@ -36,20 +36,26 @@ public class QwQifyaClient implements ClientModInitializer {
         });
         BlockEvents.USE_ITEM_ON.register((item, blockState, level, blockPos, player, hand, blockHitResult) ->
         {
-            if (!checkEntityData(item,player) && config.checkEntityData) {
-                player.swing(hand);
-                return InteractionResult.FAIL;
+            if (config.checkEntityData) {
+                if (!checkEntityData(item, player)) {
+                    player.swing(hand);
+                    return InteractionResult.FAIL;
+                }
             }
-            if (!checkBlockEntityData(item,player) && config.checkBlockEntityData) {
-                player.swing(hand);
-                return InteractionResult.FAIL;
+            if  (config.checkBlockEntityData) {
+                if (!checkBlockEntityData(item, player)) {
+                    player.swing(hand);
+                    return InteractionResult.FAIL;
+                }
             }
             return null;
         });
         UseItemCallback.EVENT.register((player, world, hand) ->{
             ItemStack item = player.getMainHandItem();
-            if (!checkEffect(item,player) && config.checkPotionEffects) {
-                return InteractionResult.FAIL;
+            if (config.checkPotionEffects) {
+                if (!checkEffect(item, player)) {
+                    return InteractionResult.FAIL;
+                }
             }
             return InteractionResult.PASS;
         });

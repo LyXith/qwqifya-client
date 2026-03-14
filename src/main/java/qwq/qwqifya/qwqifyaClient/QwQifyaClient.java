@@ -14,7 +14,12 @@ public class QwQifyaClient implements ClientModInitializer {
     public void onInitializeClient() {
         new ControlCommand();
         UseBlockCallback.EVENT.register((player, level, hand, blockHitResult) -> {
-            boolean stopClickEvent = !checkClickEvent(blockHitResult.getBlockPos(), level, player);
+            if (!enableClickEvent) {
+                boolean stopClickEvent = !checkClickEvent(blockHitResult.getBlockPos(), level, player);
+                if (stopClickEvent) {
+                    return InteractionResult.CONSUME;
+                }
+            }
             return InteractionResult.PASS;
         });
         CommandManager.refreshCommands();

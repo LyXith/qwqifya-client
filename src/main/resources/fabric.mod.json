@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "id": "qwqifya-client",
+  "version": "${version}",
+  "name": "qwqifya-client",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/qwqifya-client/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "qwq.qwqifya.qwqifyaClient.QwQifyaClient"
+    ]
+  },
+  "mixins": [
+    "qwqifya-client.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

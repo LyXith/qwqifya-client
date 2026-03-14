@@ -1,6 +1,6 @@
 {
   "text.autoconfig.qwqifya-client.title": "配置",
-  "text.autoconfig.qwqifya-client.option.preventClickEvent": "开启click event",
+  "text.autoconfig.qwqifya-client.option.preventClickEvent": "阻止click event",
   "text.autoconfig.qwqifya-client.option.checkEntityData": "检查实体数据",
   "text.autoconfig.qwqifya-client.option.checkBlockEntityData": "检查方块实体数据",
   "text.autoconfig.qwqifya-client.option.checkPotionEffects": "检查药水效果"
